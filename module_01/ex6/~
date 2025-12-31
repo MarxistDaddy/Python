@@ -1,0 +1,82 @@
+#!/usr/bin/python3.10
+
+class Plant:
+    def __init__(self, name, height):
+        self.name = name
+        self.height = height
+
+    def grow(self): #how to inherit a method
+        self.height += 1
+        print(f"{self.name} grew 1cm") 
+
+
+class FloweringPlant(Plant):
+    def __init__(self, name, height, color):
+        super().__init__(name, height)
+        self.color = color
+
+
+class PrizeFlower(FloweringPlant):
+    def __init__(self, name, height, color, prize):
+        super().__init__(name, height, color)
+        self.prize = prize
+
+#------------------------------garden---------------------------------#
+
+class Garden():
+    total_plants = 0
+    total_height = 0
+
+    def __init__(self, owner):
+        self.owner = owner
+        self.plants = []
+        #stats??
+    plants_n = len(self.plants)
+    print("plants start:", self.plants)
+
+    def add_plant(self, plant):
+        self.plants.append(plant)
+        x += 1
+        print(f"Added {plant.name} to {self.owner}'s garden")
+
+    def help_grow(self):
+        print(f"{self.owner} is helping all plants grow...")
+        for p in self.plants:
+            p.grow()
+            total_heights += 1
+        
+    def report(self):
+        print(f"=== {self.owner}'s Graden Report ===")
+        print("Plants in garden:")
+        for p in self.plants:
+            if isinstance(p, PrizeFlower):
+               print(f"- {p.name}: {p.height}cm, {p.color}, Prize points: {p.prize}")
+            elif isinstance(p, FloweringPlant):
+               print(f"- {p.name}: {p.height}cm, {p.color}")
+            else:
+               print(f"- {p.name}: {p.height}cm")
+
+	def plants_added(self):
+            print(f"Plants added: {self.total_plants}, Total growth: {self.total_height}cm")
+            
+
+#---------------------------------------------------------------------#
+
+
+alice = Garden("Alice")
+print("Garden:", alice.owner)
+
+
+Oak_Tree = Plant("Oak Tree", 100)
+Rose = FloweringPlant("Rose", 25, "red")
+Sunflower = PrizeFlower("Sunflower", 50, "black", 10)
+
+alice.add_plant(Oak_Tree)
+alice.add_plant(Rose)
+alice.add_plant(Sunflower)
+
+
+alice.help_grow()
+alice.report()
+
+
