@@ -6,25 +6,21 @@ class Plant:
         self.height = height
         self.days = days
 
-    def grow(self):
-        self.height += 1
 
-    def age(self):
-        self.days += 1
-
-    def get_info(self):
-        print(f"{self.name}: {self.height}cm, {self.days} days old")
+Flower_list = [("Rose", 25, 30), ("Oak", 200, 365), ("Cactus", 5, 90), ("Sunflower", 80, 45), ("Fern", 15, 120)]
 
 
-if __name__ == "__main__":
-    print("=== Day 1 ===")
-    
-    rose = Plant("Rose", 25, 30)
-    rose.get_info()
+for i in Flower_list: #i is the value itself in the iterable list!
+    print(i)
 
-    for i in range(1, 8):
-        rose.grow()
-        rose.age()
+Plants = []
 
-    print("=== Day 7 ===")
-    rose.get_info()
+for a, b, c in Flower_list:  #unpacking
+    plant = Plant(a, b, c)
+    Plants.append(plant)
+
+
+for p in Plants:
+    print(f"Created: {p.name} ({p.height}cm, {p.days} days old)")
+
+print("\nTotal plants created:", len(Plants))

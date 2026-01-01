@@ -9,4 +9,4 @@ class Plant:
 plant_1 = Plant("Rose", 25, 3)
 
 if __name__ == "__main__":
-    print(f"{plant_1.name}:", f"{plant_1.height}cm,", f"{plant_1.age} days old")
+    print(f"{plant_1.name}: {plant_1.height}cm, {plant_1.age} days old")

@@ -36,7 +36,6 @@ class PrizeFlower(FloweringPlant):
         return f"- {self.name}: {self.height}cm, {self.color} flower (booming), Prize points: {self.prize}"
 
 #------------------------------garden---------------------------------#
-
 class Garden():
     def __init__(self, owner):
         self.owner = owner
@@ -54,12 +53,14 @@ class Garden():
         for p in self.plants:
             p.grow()
             self.total_height += 1
+        print("")
 
     def report(self):
-        print(f"=== {self.owner}'s Graden Report ===")
+        print(f"\n=== {self.owner}'s Graden Report ===")
         print("Plants in garden:")
         for p in self.plants:
             print(p.describe())
+        print("")
     
     def get_score(self):
         score_total = 0
@@ -90,7 +91,6 @@ class GardenManager:
     def add_garden(self, garden):
         self.gardens.append(garden)
         self.total_gardens += 1
-        print("garden been added!")
 
     class GardenStats:
         def __init__(self, garden):
@@ -134,24 +134,36 @@ class GardenManager:
 
 if __name__ == "__main__":
 
-    
+    print("=== Garden Managment System ===\n")
     alice = Garden("Alice")
     bob = Garden("Bob")
 
     alice.add_plant(Plant("Oak Tree", 100))
     alice.add_plant(FloweringPlant("Rose", 25, "red"))
     alice.add_plant(PrizeFlower("Sunflower", 50, "yellow", 10))
-
+ 
+    print("") 
     alice.help_grow()
 
     manager = GardenManager()
     manager.add_garden(alice)
+    manager.add_garden(bob)
     
-    stats = manager.GardenStats(alice)
-    stats.report_garden() 
-    stats.total_PH()
-    stats.plant_types()
-    stats.check_height()
-    stats.print_score()
+    bob.add_plant(Plant("pine", 60)) 
+    bob.add_plant(FloweringPlant("kika", 20, "pink"))
+    bob.help_grow() 
+    def print_stats(owner):
+        stats = manager.GardenStats(owner)
+        stats.report_garden() 
+        stats.total_PH()
+        stats.plant_types()
+        print("")
+        stats.check_height()
+        stats.print_score()
+
+    
+    print_stats(alice)
+    print_stats(bob)
+    print("")
     manager.get_total_gardens()
 
