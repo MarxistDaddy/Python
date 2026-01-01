@@ -1,10 +1,11 @@
 def ft_count_harvest_recursive():
-	Days = int(input("Days until harvest: "))
-	def count_harvest(days):
-	  if (days > Days):
-	    print("Harvest time!")
-	    return
-	  print("Day ", days)
-	  count_harvest(days + 1)	     
+    days = int(input("Days until harvest: "))
+    
+    def count(n):
+        if n > days:
+           return
+        print("Day", n)
+        count(n + 1)
 
-	count_harvest(1)
+    count(1)
+    print("Harvest time!")
