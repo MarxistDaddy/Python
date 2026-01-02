@@ -1,6 +1,6 @@
 def ft_garden_summary():
     name = input("Enter garden name: ")
-    n = input("Enter number of plants: ")
+    num = input("Enter number of plants: ")
     print(f"Garden: {name}")
-    print(f"Plants: {n}")
-    print(f"Status: Growing well!")
+    print(f"Plants: {num}")
+    print("Status: Growing well!")
