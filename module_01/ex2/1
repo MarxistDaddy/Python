@@ -18,14 +18,15 @@ class Plant:
         print(f"{self.name}: {self.height}cm, {self.age} days old")
         return self.total_height
 
-if __name__ == "__main__":
-    print("=== Day 1 ===")
-    p = Plant("Rose", 25, 30)
-    p.get_info()
+print("=== Day 1 ===")
 
-    print("=== Day 7 ===")
-    for i in range(7):
-        p.grow()
+p = Plant("Rose", 25, 30)
 
-    info = p.get_info()
-    print(f"Total growth this week: +{info}cm")
+
+print("=== Day 7 ===")
+for i in range(7)
+    p.grow()
+
+info = p.get_info()
+
+print(f"Total growththis week: +{info}cm")

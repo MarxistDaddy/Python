@@ -1,6 +1,6 @@
 #!/usr/bin/python3.10
 
-class Plant:
+class Plant():
     def __init__(self, name, height, age):
         self.name = name
         self.height = height
@@ -11,16 +11,62 @@ class Flower(Plant):
         super().__init__(name, height, age)
         self.color = color
 
-    def bloom(self):	# --> why do we pass self
-        print("Rose is blooming beautifully!")
+    def bloom(self):
+        print(f"{self.name} is blooming beautifully!")
+
+    def describe(self):
+        print(
+            f"{self.name} (Flower): {self.height}cm, "
+            f"{self.age} days, {self.color} color"
+        )
 
 
-rose = Flower("rose", 25, 30, "red color")
+class Tree(Plant):
+    def __init__(self, name, height, age, trunk_diameter):
+        super().__init__(name, height, age)
+        self.trunk_diameter = trunk_diameter
 
-print(f"name = {rose.name}\nheight = {rose.height}\nage = {rose.age}\ncolor = {rose.color}")
+    def produce_shade(self):
+        shade = self.trunk_diameter * 1.56
+        print(f"{self.name} provides {int(shade)} square meters of shade")
 
-rose.bloom() # if we dont pass self, we get this error! understand it!
+    def describe(self):
+        print(
+            f"{self.name} (Tree): {self.height}cm, "
+            f"{self.age} days, {self.trunk_diameter}cm diameter"
+        )
 
-#rose.bloom()
-#TypeError: Flower.bloom() takes 0 positional arguments but 1 was given
-#why does it need the argument self!
+class Vegetable(Plant):
+    def __init__(self, name, height, age, harvest_season, nutritional_value):
+        super().__init__(name, height, age)
+        self.harvest_season = harvest_season
+        self.nutritional_value = nutritional_value
+
+    def describe(self):
+        print(
+            f"{self.name} (Vegetable): {self.height}cm, "
+            f"{self.age} days, {self.harvest_season} harvest"
+        )
+
+    def nutrition_info(self):
+        print(f"{self.name} is rich in {self.nutritional_value}")
+
+
+if __name__ == "__main__":
+    print("=== Garden Plant Types ===\n")
+    rose = Flower("Rose", 25, 30, "color")
+    rose.describe()
+    rose.bloom()
+    print()
+    tree = Tree("Oak", 500, 1825, 50)
+    tree.describe()
+    tree.produce_shade()
+    print()
+    veggie = Vegetable("Tomato", 80, 90, "summer", "C")
+    veggie.describe()
+    veggie.nutrition_info()
+
+
+
+
+

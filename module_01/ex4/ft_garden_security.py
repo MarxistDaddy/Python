@@ -1,46 +1,42 @@
 #!/usr/bin/python3.10
 
-#==> can we call funtions anywhere?? isnt against how interpreter works!
 class SecurePlant:
-    def __init__(self, name: str, height: int, age: int):
+    def __init__(self, name):
         self.name = name
-        self.__height = 0
-        self.__age = 0
-        print(f"plant created: {self.name}")
-        self.set_height(height)
-        self.set_age(age)
-        print(self.get_height())
-        print(self.get_age())
+        self._height = 0
+        self._age = 0
+        print(f"Plant created: {self.name}")
 
     def set_height(self, height):
         if height < 0:
-            print("invalid height!")
-        else:
-            self.__height = height
+            print(f"Invalid operation attempted: height {height}cm [REJECTED]")
+            print("Security: Negative height rejected")
+            return
+        self._height = height
+        print(f"Height updated: {self._height}cm [OK]")
 
     def set_age(self, age):
         if age < 0:
-           print("invalid age!")
-        else:
-           self.__age = age
+            print(f"Invalid operation attempted: age {age} days [REJECTED]")
+            print("Security: Negative age rejected")
+            return
+        self._age = age
+        print(f"Age updated: {self._age} days [OK]")
 
     def get_height(self):
-        return self.__height
+        return self._height
 
     def get_age(self):
-        return self.__age
+        return self._age
 
-obj = SecurePlant("rose", 1, 3)
+# -------------------- MAIN --------------------
 
+print("=== Garden Security System ===")
 
-
-#when i try to create a new class! i can pass arguments direclty to it! 
-# this measn that i can also pass arguments/values of the private objects directly
-
-#but: the assinging of privarte objects is done through setters abd getters
-#so i can call these 2 functions to assign the objects directly!
-#but when i call these functions, getters(height), setter(heigth)
-#i cant use them directly like get(heigth | set(heigt))
-#i need to use self with them: self.get(height | self.et(height))
-#inside these function i have the self.object == value pass as argument!
-
+plant = SecurePlant("Rose")
+plant.set_height(25)
+plant.set_age(25)
+print()
+plant.set_height(-4)
+print()
+print(f"Current plant: {plant.name} ({plant.get_height()}cm, {plant.get_age()} days)")
