@@ -2,9 +2,10 @@
 
 class Plant:
     def __init__(self, name: str, height: int, age: int):
-      self.name = name
-      self.height = height
-      self.age = age
+        self.name = name
+        self.height = height
+        self.age = age
+
 
 plant_1 = Plant("Rose", 25, 30)
 plant_2 = Plant("Sunflower", 80, 45)

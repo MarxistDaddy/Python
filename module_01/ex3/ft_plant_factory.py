@@ -7,7 +7,9 @@ class Plant:
         self.days = days
 
 
-Flower_list = [("Rose", 25, 30), ("Oak", 200, 365), ("Cactus", 5, 90), ("Sunflower", 80, 45), ("Fern", 15, 120)]
+Flower_list = [("Rose", 25, 30),
+               ("Oak", 200, 365), ("Cactus", 5, 90),
+               ("Sunflower", 80, 45), ("Fern", 15, 120)]
 
 
 Plants = []
