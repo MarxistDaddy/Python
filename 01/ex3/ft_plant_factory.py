@@ -16,12 +16,12 @@ Plants = []
 total = 0
 
 for a, b, c in Flower_list:
+    plant = Plant(a, b, c)
     Plants += [Plant(a, b, c)]
     total += 1
 
 
-print("=== Plant Factory Output ===")
 for p in Plants:
-    print(f"Created: {p.name} ({p.height}cm, {p.days} days)")
+    print(f"Created: {p.name} ({p.height}cm, {p.days} days old)")
 
 print("\nTotal plants created:", total)

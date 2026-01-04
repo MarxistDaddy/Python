@@ -29,10 +29,9 @@ class SecurePlant:
     def get_age(self):
         return self._age
 
-
 # -------------------- MAIN --------------------
-print("=== Garden Security System ===")
 
+print("=== Garden Security System ===")
 
 plant = SecurePlant("Rose")
 plant.set_height(25)
@@ -40,5 +39,4 @@ plant.set_age(25)
 print()
 plant.set_height(-4)
 print()
-print(f"Current plant: {plant.name}"
-      f"({plant.get_height()}cm, {plant.get_age()} days)")
+print(f"Current plant: {plant.name} ({plant.get_height()}cm, {plant.get_age()} days)")
