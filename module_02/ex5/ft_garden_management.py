@@ -59,7 +59,7 @@ class GardenManager:
                     raise SunError(f"Sunlight hours {p.sun} is too high (max 12)")
                 print(f"{p.name}: healthy (water: {p.water}, sun: {p.sun})")
         except (WaterError, SunError) as e:
-            print(f"Error checking {p.name}: {e}")
+            print(f"Error checking {p.name}: {e}\n")
 
 
 if __name__ == "__main__":
@@ -71,5 +71,11 @@ if __name__ == "__main__":
         garden.add_plants(i)
     garden.water_plants()
     garden.check_plant()    
-    
+    print("Testing error recovery...")
+    try:
+        raise GardenError(" Not enough water in tank")
+    except GardenError as e:
+        print(f"Caught GardenError: {e}")
 
+    print("System recovered and continuing...")
+    print("Garden management system test complete!")
