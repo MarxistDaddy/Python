@@ -4,14 +4,12 @@
 this program is about knowing how the module is being executed by relying on __name__ variable
 
 a python module can either be run directly or imported!
-__name__ in python, the special module variable, is a special bulit-in variable that exists in every Python module. its automatically set by Python and its value depends on how the module is being executed.
 
+when run directly, the module behaves like a script and displays basic info about the plane
 
+when its imported, the .py file functions as a helper file for the main one that was run directly!
 
-
-
-
-
+==> we can use dunder variable __name__, to see if the file is run direcly or impoted!
 """
 
 if __name__ == "__main__":
@@ -19,4 +17,4 @@ if __name__ == "__main__":
     print("Plant: Rose")
     print("Height: 25cm")
     print("Age: 30 days\n")
-    print("=== End of Program ===\n\n")
+    print("=== End of Program ===")

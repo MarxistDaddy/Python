@@ -1,7 +1,18 @@
 #!/usr/bin/python3.10
 
 class Plant:
+    """
+    this is Plant class. it represents a Plant in the garden
+    
+    this Plant class stores basic descriptive info like: name, height and age
+    """
     def __init__(self, name: str, height: int, age: int):
+        """
+        under special methods. used to initliaze a new Plant instance
+
+        args: descrptive info about the plant!
+              name, height in cm, age days
+        """
         self.name = name
         self.height = height
         self.age = age
