@@ -3,7 +3,7 @@
 class Plant:
     """
     this is Plant class. it represents a Plant in the garden
-    
+
     this Plant class stores basic descriptive info like: name, height and age
     """
     def __init__(self, name: str, height: int, age: int):

@@ -4,7 +4,8 @@ class SecurePlant:
     '''
     represents a plant with protected attributes
 
-    the secureplant class prevents invalud data assignements by validating height and age value before applying changes
+    the secureplant class prevents invalud data assignements by
+    validating height and age value before applying changes
     '''
     def __init__(self, name):
         """
@@ -47,7 +48,8 @@ class SecurePlant:
 
     def get_height(self):
         """
-        retrieve the plant current height:  (getter method) to prevent modifying data
+        retrieve the plant current height: (getter method)
+        to prevent modifying data
 
         return: (int) height in cm
         """
@@ -55,7 +57,8 @@ class SecurePlant:
 
     def get_age(self):
         """
-        retrieve the plant current age:  (getter method) to prevent modifying data
+        retrieve the plant current age:
+        (getter method) to prevent modifying data
 
         return: (int) age in days
         """
@@ -70,7 +73,7 @@ plant = SecurePlant("Rose")
 plant.set_height(25)
 plant.set_age(25)
 print()
-plant.set_height(-4)
+plant.set_height(-5)
 print()
 print(f"Current plant: {plant.name}"
       f"({plant.get_height()}cm, {plant.get_age()} days)")

@@ -4,7 +4,9 @@ class Plant:
     """
     Plant class: represents a plant that can grow and age over time.
 
-    relying on grow in its methods, it can tracks Plant's info: name, current height in cm and age in days, and it can return the total height gainged through growth!
+    relying on grow in its methods, it can tracks Plant's info: name,
+    current height in cm and age in days, and it can return
+    the total height gainged through growth!
     """
     def __init__(self, name: str, height: int, Age: int):
         """

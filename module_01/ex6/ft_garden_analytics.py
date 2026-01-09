@@ -74,8 +74,8 @@ class Garden():
     """
     represnts a garden class owner by a specific person
 
-    a garden manages collection of plants, tracks growth, and calculates a score
-    based on plant types!
+    a garden manages collection of plants, tracks growth
+    and calculates a score based on plant types!
     """
     def __init__(self, owner):
         self.owner = owner
