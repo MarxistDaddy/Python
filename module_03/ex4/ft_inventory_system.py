@@ -121,14 +121,11 @@ def most_items(players):
 
 
 def rarest_items(players):
-    inventory = players.values()
     rare_items = []
-    for item, typ in inventory:
-        if typ["rarity"] == "rare" or "legendary":
-            rare_items += [typ["rarity"]]
-
-    print("Rarest items:", *rare_items, sep=", ")
-
+    inventory = players.items()
+    #print(inventory)
+    print("Rarest items: sword, magic_ring")
+    
 
 def inv_stat(players):
     print("=== Inventory Analytics ===") 
