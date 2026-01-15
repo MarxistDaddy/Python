@@ -1,4 +1,3 @@
-
 players = {
     "alice": {
         "sword": {"type": "weapon", "rarity": "rare", "quantity": 1, "value": 500},
@@ -6,7 +5,7 @@ players = {
         "shield": {"type": "armor", "rarity": "uncommon", "quantity": 1, "value": 200},
     },
     "bob": {
-        "magic_ring": {"type": "accessory", "rarity": "legendary", "quantity": 1, "value": 600},
+        "magic_ring": {"type": "accessory", "rarity": "legendary", "quantity": 1, "value": 800},
     }
 }
 
@@ -44,16 +43,15 @@ def display_inventory(player_name):
             print(", ", end="")
         print(f"{k}({v})", end="")
         first = False
-    print("")
         
 
 def transfer_item(from_player, to_player, item_name, quantity):
     print(f"=== Transaction: {from_player} gives {to_player} {quantity} {item_name} ===")
-    from_inv = players[from_player]
-    to_inv = players[to_player]
+    from_inv = players[from_player] #alice: {a,b,c,d}
+    to_inv = players[to_player]	    #bob: {a,b,c,d}
     
     if item_name not in from_inv:
-        print(f"Transaction failed, {from_player} does not have item\n")
+        print(f"Transaction failed, {from_player} does not have them item\n")
         return
 
     if from_inv["potion"]["quantity"] < quantity:
@@ -88,60 +86,18 @@ def check_update(player1, player2):
     print("")
 
 
-def valuable_player(players):
-    max_value = 0
-    best_player = None
-
-    for player, inv in players.items():
-        total = 0
-        for item in inv.values():
-            total += (item["value"] * item["quantity"])
-
-        if total > max_value:
-            max_value = total
-            best_player = player
-
-    print(f"Most valuable player: {best_player} ({max_value}) gold")
-
-
-def most_items(players):
-    most_player = 0
-    most_items = 0
-
-    for player, inv in players.items():
-        total = 0
-        for item in inv.values():
-            total += item["quantity"]
-
-        if total > most_items:
-           most_player = player
-           most_items = total
-
-    print(f"Most items: {most_player} ({most_items} items)")
-
-
-def rarest_items(players):
-    inventory = players.values()
-    rare_items = []
-    for item, typ in inventory:
-        if typ["rarity"] == "rare" or "legendary":
-            rare_items += [typ["rarity"]]
-
-    print("Rarest items:", *rare_items, sep=", ")
-
-
-def inv_stat(players):
-    print("=== Inventory Analytics ===") 
-    valuable_player(players)
-    most_items(players)
-    rarest_items(players)
+def inv_analytics():
+    print("=== Inventory Analytics ===")
 
 
 if __name__ == "__main__":
     print("=== Player Inventory System ===\n")
     display_inventory("alice")
+    print("\n")
     transfer_item("alice", "bob", "potion", 2)
     check_update("alice", "bob")
-    inv_stat(players)
+    inv_analytics()
+
+
 
 
