@@ -1,13 +1,10 @@
-#!/usr/bin/python3.10
-
 import sys
 
-if __name__ == "__main__":
+def main():
     print("=== Player Score Analytics ===\n")
     argc = len(sys.argv)
-
     if argc < 2:
-        print(f"No scores provided. usage: " 
+        print(f"No scores provided. usage: "
               f"python2 ft_score_analytics.py <score1> <score2> ...")
     else:
         scores = []
@@ -18,7 +15,7 @@ if __name__ == "__main__":
                  i += 1
         except:
             print(f"oops, I typed {sys.argv[i]} instead of an int_value")
-    
+            return
         print("Scores processed:", scores)
         print("Total players:", argc -1)
         print("Total score:", sum(scores))
@@ -26,3 +23,5 @@ if __name__ == "__main__":
         print("High score:", max(scores))
         print("Low score:", min(scores))
         print("Score range:", max(scores) - min(scores))
+
+main()

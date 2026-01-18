@@ -3,7 +3,7 @@
 import sys
 import math
 
-if __name__ == "__main__":
+def main():
     print("=== Game Coordinate System ===")
     origin = (0, 0, 0)
     position = (10, 20, 5)
@@ -15,7 +15,7 @@ if __name__ == "__main__":
         (position[2] - origin[2]) ** 2
     )
 
-    print(f"Distance between {origin} nd {position}: {distance:.2f}\n\n")
+    print(f"Distance between {origin} nd {position}: {distance:.2f}\n")
 
     argc = len(sys.argv)
     if argc > 1:
@@ -46,4 +46,6 @@ if __name__ == "__main__":
         except ValueError as e:
             print(f"Error passing coordinates: {e}")
             print(f"Error details - type: {type(e).__name__}, Args: {e.args}")
-            sys.exit(1)
+            return
+
+main()
