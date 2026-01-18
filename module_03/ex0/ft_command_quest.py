@@ -1,5 +1,3 @@
-#!/usr/bin/python3.10
-
 import sys
 
 if __name__ == "__main__":
