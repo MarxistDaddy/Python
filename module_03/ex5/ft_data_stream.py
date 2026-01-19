@@ -368,7 +368,7 @@ def processing_players(events):
         player = event["player"]
         level = event["data"]["level"]
         event_type = event["event_type"]
-        
+
         if level >= 10:
             high_level_player += 1
         if event_type == "level_up":
@@ -387,7 +387,7 @@ def processing_players(events):
 
         if count < 10:
             print(f"Event  {count}: Player {player} (level {level}) {action}")
-        else: 
+        else:
             print(f"Event {count}: Player {player} (level {level}) {action}")
 
     print("=== Stream Analytics ===\n")
@@ -404,22 +404,21 @@ def fibonnaci():
     a = 0
     b = 1
     while True:
-       yield a
-       a, b = b, a + b
+        yield a
+        a, b = b, a + b
 
 
 def get_fibonnaci():
     print("Fibonacci sequence (first 10): ", end="")
     fib = fibonnaci()
-    count = 0    
-
+    count = 0
     for num in fib:
         print(num, end="")
         count += 1
         if count < 10:
-           print(", ", end="")
+            print(", ", end="")
         else:
-           break
+            break
 
 
 def primes():
@@ -437,10 +436,8 @@ def primes():
 
 def get_prime():
     print("Prime numbers (first 5): ", end="")
-
     prime_gen = primes()
     count = 0
-
     for p in prime_gen:
         print(p, end="")
         count += 1
@@ -449,12 +446,10 @@ def get_prime():
         else:
             break
 
+
 if __name__ == "__main__":
     processing_players(events)
     print("=== Generator Demonstration ===")
     get_fibonnaci()
     print("")
     get_prime()
-
-
-

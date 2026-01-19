@@ -1,8 +1,9 @@
-`print("=== Achievement Tracker System ===")
+print("=== Achievement Tracker System ===")
 
 alice = {'first_kill', 'level_10', 'treasure_hunter', 'speed_demon'}
 bob = {'first_kill', 'level_10', 'boss_slayer', 'collector'}
-charlie = {'level_10', 'treasure_hunter', 'boss_slayer', 'speed_demon', 'perfectionist'}
+charlie = {'level_10', 'treasure_hunter',
+           'boss_slayer', 'speed_demon', 'perfectionist'}
 
 print(f"Player alice achievments: {alice}")
 print(f"Player bob achievments: {bob}")
@@ -19,12 +20,16 @@ print(f"\ncommon to all players: '{common}'")
 
 
 def get_rare(alice, bob, charlie) -> list:
-    return ((alice - bob - charlie) | (bob - charlie - alice) | (charlie - alice - bob))
+    return ((alice - bob - charlie) |
+            (bob - charlie - alice) |
+            (charlie - alice - bob))
+
 
 def missing_p(rare, alice, bob, charlie):
     players = [alice, bob, charlie]
     count = len([p for p in players if not p & rare])
     return count
+
 
 rare = get_rare(alice, bob, charlie)
 missing_player = missing_p(rare, alice, bob, charlie)
