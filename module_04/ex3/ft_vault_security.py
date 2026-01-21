@@ -9,13 +9,13 @@ def main():
             file = vault.read()
             print(file)
     except FileNotFoundError:
-        print("{[}CLASSIFIED{[} No classified data found!")
+        print("[CLASSIFIED] No classified data found!")
 
     print("\nSECURE PRESERVATION:")
-    with open("new_protocol", "w") as new:
-        print("{[}CLASSIFIED{]} New security protocols archived")
+    with open("new_protocol", "w"):
+        print("[CLASSIFIED] New security protocols archived")
         print("Vault automatically sealed upon completion\n")
-    
+
     print("All vault operations completed with maximum security.")
 
 

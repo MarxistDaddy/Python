@@ -10,10 +10,12 @@ def main():
     print("Accessing Storage Vault:", vault.name)
     print("Connection established...\n")
 
+    print("RECOVERED DATA:")
     file = vault.read()
     print(file)
 
-    print("\nData recovery complete. Storage unit disconnected.")
     vault.close()
+    print("\nData recovery complete. Storage unit disconnected.")
+
 
 main()
