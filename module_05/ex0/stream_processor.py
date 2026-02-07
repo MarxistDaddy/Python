@@ -3,38 +3,21 @@ from abc import ABC, abstractmethod
 
 
 class DataProcessor(ABC):
-    """
-    abstract class that functions as processing interface for classes that inherit from it
-    """
-
     @abstractmethod
     def process(self, data: any) -> str:
-        """
-        process the given data and return a string result
-        """
         raise NotImplementedError
 
 
     @abstractmethod
     def validate(self, data: any) -> bool:
-        """
-        validate whether the given data is appropriate for this processor.
-        """
         raise NotImplementedError
 
 
     def format_output(self, result: str) -> str:
-        """
-        default output formatting
-        """
         return f"Outout: {result}"
 
 
-
 class NumericProcessor(DataProcessor):
-    """
-    class to process numeric data
-    """
     def process(self, data: any) -> str:
         if not self.validate(data):
             raise ValueError("Invalud numeric data")
@@ -42,7 +25,7 @@ class NumericProcessor(DataProcessor):
         total = sum(data)
         avg = total / len(data)
 
-        return f"Processed {len(data)} numeric values, sum={total}, ave={avg}"
+        return f"Processed {len(data)} numeric values, sum={total}, avg={avg}"
 
 
     def validate(self, data: any) -> bool:
@@ -65,9 +48,6 @@ class NumericProcessor(DataProcessor):
 
 
 class TextProcessor(DataProcessor):
-    """
-    class to handle text data
-    """
     def process(self, data: any) -> str:
         if not self.validate(data):
             raise ValueError("Invalid text data")
@@ -90,9 +70,6 @@ class TextProcessor(DataProcessor):
 
 
 class LogProcessor(DataProcessor):
-    """
-    class to process log data
-    """
     def process(self, data: any) -> str:
         if not self.validate(data):
             raise ValueError("Invalid log entry")
@@ -101,22 +78,26 @@ class LogProcessor(DataProcessor):
         level = ""
 
         if log.startswith("ERROR"):
-            level = "ERROR"
+            level = "ALERT"
         elif log.startswith("WARNING"):
             level = "WARNING"
-        if log.startswith("INFO"):
+        elif log.startswith("INFO"):
             level = "INFO"
 
         parts = log.split(":", 1)
         message = parts[1].strip()
 
-        return f"[ALERT]: {level} level detected: {message}"
+        return f"[{level}]: {parts[0].strip()} level detected: {message}"
 
     def validate(self, data: any) -> bool:
         if type(data) != str:
             return False
 
         if ":" not in data:
+            return False
+
+        word = data.split(":", 1)[0].strip()
+        if not word.startswith(("ERROR", "WARN", "INFO")):
             return False
 
         return True
@@ -126,12 +107,12 @@ class LogProcessor(DataProcessor):
 
 
 def main() -> None:
-    print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===")
+    print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===\n")
     
     data_test: List[data] = [
         [1, 2, 3, 4, 5],
         "Hello Nexus World",
-        "Error: Connection timeout",
+        "ERROR: Connection timeout",
     ]
 
     class_processors: List[classes] = [
@@ -145,21 +126,44 @@ def main() -> None:
         print(f"Processing data: {data}")
         try:
             result = process_class.process(data)
-            print("Validaion: Data verified")
-            print(f"Output: Processed {process_class.format_output(result)}\n")
+            if process_class.__class__.__name__.startswith("Numeric"):
+                print("Validation: Numeric data verified")
+            if process_class.__class__.__name__.startswith("Text"):
+                print("Validation: Text data verified")
+            if process_class.__class__.__name__.startswith("Log"):
+                print("Validation: Log entry verified")
+            print(f"Output: {process_class.format_output(result)}\n")
         except Exception as e:
             print(f"Processing failed: {e}")
 
 
+    print("=== Polymorphic Processing Demo ===")
+    print("Processing multiple data types through same interface...")
+
+    #we are creating object out of the basetype which is DataProcessor
+    #to illistrutate that we are create differnt object that follow the same interfecet
+    #but to each its own implmenetnation, this is what polymorphiscm is about
+    #we do this to show that we are following the interface, and that we actully understand polym
+    #otherwise we would be creating, simple object that may work as the supposed object that inherit
+    #from the base type, but not actually following the interface of the base class!
+
+
+    Processors = [NumericProcessor(), TextProcessor(), LogProcessor()]
+
+    demo_data = [
+        [1, 2, 3],
+        "Hello Nexus",
+        "INFO: System ready",
+    ]
+
+    i = 1
+    for processor, data in zip(Processors, demo_data):
+        print(f"Result {i}: {processor.process(data)}")
+        i += 1
+
+    print("\nFoundation systems online. Nexus ready for advanced streams.")
+
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
 
