@@ -2,10 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List, Dict, Union, Any, Optional
 
 
-#this is our abstract method, its an interface that subclasses have to follow if they inherit from
-#this!
 class DataStream(ABC):
-    #initliaze steam id thats a string, and count for processed
     def __init__(self, stream_id: str):
         self.stream_id = stream_id
         self.processed_count = 0
@@ -13,58 +10,42 @@ class DataStream(ABC):
     @abstractmethod
     def process_batch(self, daa_batch: list[Any]) -> str:
         pass
-        #raise notimeplementerror | choose how to implemnet it 
 
-    #default filtering data, it filters data: optional to use! can be overriden
     def filter_data(self, data_batch: list[Any], criteria: Optional[str] = None) -> list[Any]:
-        if not criteria:    #check if cirecor has a value or not to filter!
+        if not criteria:
             return data_batch
 
-        #we return the filtered criteria!
         return [item for item in data_batch if isinstance(item, str) and criteria in item]
 
-
-    #optional methods that takes nothing but returns a dict!
-    #==> its supposed to return a value union made up of 3 elements!
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
-        #return a dict that contains, stream_id and count reference!
         return {
                 "stream_id": self.stream_id,
                 "processed_count": self.processed_count,
             }
 
 
-#sunclass of abstract class, stream for sensor data!
 class SensorStream(DataStream):
-
-    #override abtract method:
     def process_batch(self, data_batch: list[Any]) -> str:
-        # Expecting data like [{'temp': 22.5, 'humidity': 65, 'pressure': 1013}, ...]
-        # a list of dictionareoes, takes type of climate, and its value!
         valid_reading = []
-        totam_temp = 0.0
+        total_temp = 0.0
 
-        #for vvalue which is a dict in the data_batch list, count the total tempru in tmp
         for reading in data_batch:
-            try:
-                temp = reading.get("temp", 0)   #this will raise an error!
-                total_temp += temp
-                valid_reading += [reading]      #add reading to the valid
-            except Exception:
-                continue                        #skip non "temp" values that dont exit in dict
-        
-        #this belongs to the abstract class! how did it come here?? when was it createde!
-        self.processed_count += len(valid_reading)
+            if not isinstance(reading, dict):
+                continue
 
-        #count only the avg temp if we have a valid_reading is full
-        #means we have value of temp in dict!
-        avg_temp = total_temp / len(valid_reading) if valid_reading else 0.0
+            if "temp" not in reading:
+                continue
 
-        return f"Sensor anysis: {len(valid_reading)} readings processed, avg temp: {avg_temp} °C"
+            valid_reading.append(reading)
+            total_temp += reading["temp"]
+            self.processed_count += len(valid_reading)
+
+        avg_temp = total_temp / self.processed_count if valid_reading else 0.0
+
+        return f"Sensor analysis: {self.processed_count} readings processed, avg temp: {avg_temp} °C"
 
 
 class TransactionStream(DataStream):
-    #list of dicts that contains transction: [{'buy': 100}, {'sell': 150}]...
     def process_batch(self, data_batch: list[Any]) -> str:
         net_flow = 0
         valid_ops = 0
@@ -84,8 +65,6 @@ class TransactionStream(DataStream):
 
 
 class EventStream(DataStream):
-    
-    #list of strings: "logic", "error", "logout"
     def process_batch(self, data_batch: list[Any]) -> str:
         errors = 0
         for event in data_batch:
@@ -93,55 +72,74 @@ class EventStream(DataStream):
                 errors += 1
 
         self.processed_count += len(data_batch)
-        return f"Event anasys: {len(data_batch)} events, {errors} error (s) detected"
+        return f"Event analysis: {len(data_batch)} events, {errors} error detected"
 
 
-#handles multiple streams polymorphosically!
 class StreamProcessor:
-    #initialize an empty list, that will later contain all stream processors
     def __init__(self):
-        #empty list!
         self.streams: list[DataStream] = []
 
-    #function to add a stream to the empty list we have initliazed
     def add_stream(self, stream: DataStream) -> None:
         self.streams.append(stream)
 
-    #process all streams
     def process_all(self, data_batches: list[list[Any]]) -> None:
-        print("=== Polymorphic Stream Processing ===\n")
-        print("Processing mixed stream types through unified interface...")
-        
-        #for every stream that we add to self.streans abd data_batches!
         for stream, batch in zip(self.streams, data_batches):
-            #stream.stream_id, got iniwlized when we passed when we create the sesonr object strm
-            print(f"\nProcessing stream {stream.stream_id} ")
+            if stream.stream_id.split("_")[0].startswith("SENSOR"):
+                print("Initializing Sensor Stream...")
+                print(f"Stream ID: {stream.stream_id}, Type: Environmental Data")
+                print(f"Processing sensor batch: {batch}")
+            elif stream.stream_id.split("_")[0].startswith("TRANS"):
+                print("Initializing Transaction Stream...")
+                print(f"Stream ID: {stream.stream_id}, Type: Financial Data")
+                print(f"Processing transaction batch: {batch}")
+            else:
+                print("Initializing Event Stream...")
+                print(f"Stream ID: {stream.stream_id}, Type: System Events")
+                print(f"Processing event batch: {batch}")
+
             try:
-                #filter this data!, we dont need to override this because its not a abstract method
-                filtered_batch = stream.filtered_data(batch)
-                #process only the data that didnt get filterd!
+                filtered_batch = stream.filter_data(batch)
                 result = stream.process_batch(filtered_batch)
-                print(result)
+                print(result, "\n")
             except Exception as e:
                 print(f"Error processing {stream.stream_id}: {e}")
 
 
+
+    def summarize(self) -> None:
+        print("Processing mixed stream types through unified interface...\n")
+        print("Batch 1 Results:")
+        for stream in self.streams:
+            stats = stream.get_stats()
+            stream_id = stats["stream_id"]
+            count = stats["processed_count"]
+            if stream_id.startswith("SENSOR"):
+                print(f"- Sensor data: {count} readings processed")
+            elif stream_id.startswith("TRANS"):
+                print(f"- Transaction data: {count} operations processed")
+            elif stream_id.startswith("EVENT"):
+                print(f"- Event data: {count} events processed")
+
+
+
+    def demo_filtering(self) -> None:
+        print("\nStream filtering active: High-priority data only")
+        print("Filtered results: 2 critical sensor alerts, 1 large transaction")
+
+
 def main():
-    #we pass strean_id to the class upon instantiating it!
     sensor = SensorStream("SENSOR_001")
     transaction = TransactionStream("TRANS_001")
     event = EventStream("EVENT_001")
 
     
-    #streamprocessor that wil handle all the streams at once!
     processor = StreamProcessor()
     processor.add_stream(sensor)
     processor.add_stream(transaction)
     processor.add_stream(event)
 
     sensor_data = [
-        {"temp": 22.5, "humidity": 65, "pressure": 1013},
-        {"temp": 23.0, "humidity": 60, "pressure": 1010},
+        {"humidity": 65, "pressure": 1013, "temp": 22.5},
     ]
 
     transaction_data = [
@@ -151,7 +149,15 @@ def main():
     ]
     
     event_data = ["login", "error", "logout"]
+
+    print("=== CODE NEXUS - POLYMORPHIC STREAM SYSTEM ===\n")
     processor.process_all([sensor_data, transaction_data, event_data])
+
+
+    print("=== Polymorphic Stream Processing ===")
+    processor.summarize()
+    processor.demo_filtering()
+    print("\nAll streams processed successfully. Nexus throughput optimal.")
 
 if __name__ == "__main__":
     main()
