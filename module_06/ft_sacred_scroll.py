@@ -1,7 +1,6 @@
 #this only imports 2 funcionts
 import alchemy
 
-
 #-----------------direct importation----
 print("=== Sacred Scroll Mastery ===\n")
 
