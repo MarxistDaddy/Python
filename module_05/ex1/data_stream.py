@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, Dict, Union, Any, Optional
+from typing import Dict, Union, Any, Optional
 
 
 class DataStream(ABC):
@@ -11,11 +11,18 @@ class DataStream(ABC):
     def process_batch(self, daa_batch: list[Any]) -> str:
         pass
 
-    def filter_data(self, data_batch: list[Any], criteria: Optional[str] = None) -> list[Any]:
+    def filter_data(
+        self,
+        data_batch: list[Any],
+        criteria: Optional[str] = None
+    ) -> list[Any]:
         if not criteria:
             return data_batch
 
-        return [item for item in data_batch if isinstance(item, str) and criteria in item]
+        return [
+            item for item in data_batch
+            if isinstance(item, str) and criteria in item
+        ]
 
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
         return {
@@ -42,7 +49,10 @@ class SensorStream(DataStream):
 
         avg_temp = total_temp / self.processed_count if valid_reading else 0.0
 
-        return f"Sensor analysis: {self.processed_count} readings processed, avg temp: {avg_temp} °C"
+        return (
+            f"Sensor analysis: {self.processed_count} "
+            f"readings processed, avg temp: {avg_temp} °C"
+        )
 
 
 class TransactionStream(DataStream):
@@ -61,7 +71,10 @@ class TransactionStream(DataStream):
                 continue
 
         self.processed_count += valid_ops
-        return f"Transaction analysis: {valid_ops} operations, net flow: {net_flow} units"
+        return (
+            f"Transaction analysis: {valid_ops} "
+            f"operations, net flow: {net_flow} units"
+        )
 
 
 class EventStream(DataStream):
@@ -72,7 +85,10 @@ class EventStream(DataStream):
                 errors += 1
 
         self.processed_count += len(data_batch)
-        return f"Event analysis: {len(data_batch)} events, {errors} error detected"
+        return (
+            f"Event analysis: {len(data_batch)} events"
+            f", {errors} error detected"
+        )
 
 
 class StreamProcessor:
@@ -86,7 +102,8 @@ class StreamProcessor:
         for stream, batch in zip(self.streams, data_batches):
             if stream.stream_id.split("_")[0].startswith("SENSOR"):
                 print("Initializing Sensor Stream...")
-                print(f"Stream ID: {stream.stream_id}, Type: Environmental Data")
+                print(f"Stream ID: {stream.stream_id},"
+                      f"Type: Environmental Data")
                 print(f"Processing sensor batch: {batch}")
             elif stream.stream_id.split("_")[0].startswith("TRANS"):
                 print("Initializing Transaction Stream...")
@@ -104,8 +121,6 @@ class StreamProcessor:
             except Exception as e:
                 print(f"Error processing {stream.stream_id}: {e}")
 
-
-
     def summarize(self) -> None:
         print("Processing mixed stream types through unified interface...\n")
         print("Batch 1 Results:")
@@ -120,19 +135,16 @@ class StreamProcessor:
             elif stream_id.startswith("EVENT"):
                 print(f"- Event data: {count} events processed")
 
-
-
     def demo_filtering(self) -> None:
         print("\nStream filtering active: High-priority data only")
-        print("Filtered results: 2 critical sensor alerts, 1 large transaction")
+        print("Filtered results: ",
+              "2 critical sensor alerts, 1 large transaction")
 
 
 def main():
     sensor = SensorStream("SENSOR_001")
     transaction = TransactionStream("TRANS_001")
     event = EventStream("EVENT_001")
-
-    
     processor = StreamProcessor()
     processor.add_stream(sensor)
     processor.add_stream(transaction)
@@ -147,19 +159,16 @@ def main():
         {"sell": 150},
         {"buy": 75},
     ]
-    
     event_data = ["login", "error", "logout"]
 
     print("=== CODE NEXUS - POLYMORPHIC STREAM SYSTEM ===\n")
     processor.process_all([sensor_data, transaction_data, event_data])
-
 
     print("=== Polymorphic Stream Processing ===")
     processor.summarize()
     processor.demo_filtering()
     print("\nAll streams processed successfully. Nexus throughput optimal.")
 
+
 if __name__ == "__main__":
     main()
-
-

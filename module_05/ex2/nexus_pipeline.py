@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import List, Any, Dict, Union, Optional, Protocol
+from typing import Any, Dict, Union, Protocol
+
 
 class ProcessingStage(Protocol):
     def process(self, data: Any) -> Any:
@@ -16,16 +17,16 @@ class InputStage:
                 result = {}
                 result["type"] = "json"
                 for s in data:
-                    parts = x.split(":")
+                    parts = s.split(":")
                     if parts[1].startswith('"') and parts[1].endswith('"'):
-                        result[y[0][1:-1]] = y[1][1:-1]
+                        result[parts[0][1:-1]] = parts[1][1:-1]
                     else:
-                        result[y[0][1:-1]] = y[1]
+                        result[parts[0][1:-1]] = parts[1]
                 return result
             elif "," in data:
                 parts = data.split(",")
                 return {
-                    "type":"csv",
+                    "type": "csv",
                     "user": parts[0],
                     "action": parts[1],
                     "val": parts[2],
@@ -57,7 +58,6 @@ class TransformStage:
 
 class OutputStage:
     def process(self, data: Any) -> str:
-        #format from dict to str
         if data["type"] == "json":
             return (f"processed tempreature reading: "
                     f"{data.get('value')}°"
@@ -71,7 +71,6 @@ class OutputStage:
         return "no data provided"
 
 
-
 class ProcessingPipeline(ABC):
     def __init__(self) -> None:
         self.stages: list[ProcessingStage] = []
@@ -82,7 +81,6 @@ class ProcessingPipeline(ABC):
     @abstractmethod
     def process(self, data: Any) -> Any:
         ...
-
 
 
 class JSONAdapter(ProcessingPipeline):
@@ -134,7 +132,6 @@ class NexusManager:
     def __init__(self) -> None:
         self.pipelines: list[ProcessingStage] = []
 
-
     def add_pipeline(self, pipeline: Any) -> None:
         self.pipelines.append(pipeline)
 
@@ -156,39 +153,35 @@ class NexusManager:
 
 
 def main():
-
     print("=== CODE NEXUS - ENTERPRISE PIPELINE SYSTEM ===\n")
     print("Initializing Nexus Manager...")
     print("Pipeline capacity: 1000 streams/second\n")
-
     manager = NexusManager()
-    
-    print("Creating Data Processing Pipeline...\n")
+
+    print("Creating Data Processing Pipeline...")
     json = JSONAdapter("json_01")
     csv = CSVAdapter("csv_01")
     stream = StreamAdapter("stream_01")
-    
+
     print("Stage 1: Input validation and parsing")
     json.add_stage(InputStage())
     csv.add_stage(InputStage())
     stream.add_stage(InputStage())
-    
+
     print("Stage 2: Data transformation and enrichment")
     json.add_stage(TransformStage())
     csv.add_stage(TransformStage())
     stream.add_stage(TransformStage())
-    
+
     print("Stage 3: Output formatting and delivery")
     json.add_stage(OutputStage())
     csv.add_stage(OutputStage())
     stream.add_stage(OutputStage())
-    
 
-    print("=== Multi-Format Data Processing ===\n")
+    print("\n=== Multi-Format Data Processing ===\n")
     manager.add_pipeline(json)
     manager.add_pipeline(csv)
     manager.add_pipeline(stream)
-
     manager.process_data({
         "json": '{"sensor": "temp", "value": 23.5, "unit": "C"}',
         "csv": "user,action,timestap",
@@ -201,7 +194,6 @@ def main():
     print("Chain result: 100 records processed through 3-stage pipeline")
     print("Performance: 95% efficiency, 0.2s total processing time\n")
 
-
     print("=== Error Recovery Test ===")
     print("Simulating pipeline failure...")
 
@@ -213,7 +205,8 @@ def main():
 
     print("Recovery initiated: Switching to backup processor")
     print("Recovery successful: Pipeline restored, processing resumed")
-    print("Nexus intergration complete. All systems operational.")
+    print("\nNexus intergration complete. All systems operational.")
+
 
 if __name__ == "__main__":
     main()
