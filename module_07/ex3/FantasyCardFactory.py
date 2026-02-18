@@ -5,7 +5,6 @@ from ex1.ArtifactCard import ArtifactCard
 import random
 
 
-
 class FantasyCardFactor(CardFactory):
     #name, cost_mana, rarity, attack, health
     def create_creature(self, name):
