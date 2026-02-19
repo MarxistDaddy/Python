@@ -1,12 +1,13 @@
 from abc import ABC, abstractmethod
+from ex0.Card import Card
 
 class CardFactory(ABC):
-    @abstrctmethod
-    def create_creatuere(self, name_or_power) -> Card:
+    @abstractmethod
+    def create_creature(self, name_or_power) -> Card:
        pass
 
     @abstractmethod
-    def create_spell(sekf, name_power) -> Card:
+    def create_spell(self, name_power) -> Card:
         pass
 
     @abstractmethod

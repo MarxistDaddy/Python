@@ -1,6 +1,6 @@
-from ex03.GameStrategy import GameStrategy
-from ex1.CreatureCard import CreatureCard
-
+from ex3.GameStrategy import GameStrategy
+from ex0.CreatureCard import CreatureCard
+from ex1.SpellCard import SpellCard
 
 class AggressiveStrategy(GameStrategy):
 
@@ -28,6 +28,8 @@ class AggressiveStrategy(GameStrategy):
 
             if isinstance(card, CreatureCard):
                 damage += card.attack
+            elif isinstance(card, SpellCard):
+                damage += 6
 
             count += 1
 
