@@ -1,5 +1,5 @@
 
-class TournamanePlatform:
+class TournamentPlatform:
     def __init__(self):
         self.cards = {}
         self.matches_played = 0
@@ -35,7 +35,7 @@ class TournamanePlatform:
     def get_leaderboard(self) -> list:
         cards_list = list(self.cards.values())
 
-        for i in range(len(cards_list))
+        for i in range(len(cards_list)):
             max_index = i
             for j in range(i + 1, len(cards_list)):
                 if cards_list[j].rating > cards_list[max_index].rating:
@@ -48,14 +48,14 @@ class TournamanePlatform:
         position = 1
         for card in cards_list:
             leaderboard.append(
-                f"{position}. {card.name} - Rating: {card.ratng} ({card.wins}-{card.losses})"
+                f"{position}. {card.name} - Rating: {card.rating} ({card.wins}-{card.losses})"
             )
             position += 1
 
         return leaderboard
 
 
-    def generate_tournament_reort(self) -> dict:
+    def generate_tournament_report(self) -> dict:
         total_rating = sum(card.rating for card in self.cards.values())
 
         avg_rating = total_rating // len(self.cards) if self.cards else 0

@@ -1,15 +1,15 @@
 from ex4.TournamentCard import TournamentCard
-from ex4.TournamanetPlatfrom import TournamentPlatform
+from ex4.TournamentPlatform import TournamentPlatform
 
 def main():
     print("=== DataDeck Tournament Platform ===\n")
 
     platform = TournamentPlatform()
 
-    dragon = TournamentCard("dragon_001", "Fire Dragon", 10, 8, 1200)
-    wizard = TournamentCard("wizard_001", "Ice Wizard", 7, 6, 1150)
+    dragon = TournamentCard("dragon_001", "Fire Dragon",5, "Legendary", 10, 8, 1200)
+    wizard = TournamentCard("wizard_001", "Ice Wizard", 4, "Rare", 7, 6, 1150)
 
-    print("\negistering Tournament Cards...")
+    print("Registering Tournament Cards...\n")
 
     platform.register_card(dragon)
     platform.register_card(wizard)
@@ -21,7 +21,7 @@ def main():
 
 
 
-    print(f"{wizard.name} (id: {wizard.card_id})")
+    print(f"\n{wizard.name} (id: {wizard.card_id})")
     print("- interface: [card, combatable, rankable]")
     print("- rating:", wizard.rating)
     print("- record: 0-0")
@@ -31,7 +31,7 @@ def main():
     print("Match result:", result)
 
     print("\nTournament Leaderboard:")
-    for entry in platform.het_leaderboad():
+    for entry in platform.get_leaderboard():
         print(entry)
 
     print("\nPlatform Report:")

@@ -2,7 +2,7 @@ from ex0.Card import Card
 from ex2.Combatable import Combatable
 from ex2.Magical import Magical
 
-class ElitCard(Card, Combatable, Magical):
+class EliteCard(Card, Combatable, Magical):
     def __init__(self, 
         name: str, cost: int, rarity: str, attack: int, health: int, mana_pool: int):
         super().__init__(name, cost, rarity)
@@ -48,7 +48,7 @@ class ElitCard(Card, Combatable, Magical):
         self.mana -= mana_cost
         return {
             "caster": self.name,
-            "spell": self.spell,
+            "spell": spell_name,
             "targets": targets,
             "mana_used": mana_cost,
         }
