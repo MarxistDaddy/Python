@@ -8,6 +8,7 @@ print(f"validate_ingredients('dragon scales'): {validate_ingredients('dragon sca
 
 print("\nTesting spell recording with validation:")
 print(f"record_spell('Fireball', 'fire air'): {record_spell('Fireball', 'fire air')}")
+print(f'record_spell("Dark Magic", "shadow"): {record_spell("Dark Magic", "shadow")}')
 
 print("\nCircular dependency curse avoided using late imports!")
 print("All spells processed safely!")

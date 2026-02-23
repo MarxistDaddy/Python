@@ -17,7 +17,6 @@ print(f"create_water(): {create_water()}\n")
 
 
 print("Method 3 - Aliased import:")
-print()
 print(f"heal(): {heal()}\n")
 
 
