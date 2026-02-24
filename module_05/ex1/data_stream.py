@@ -3,7 +3,7 @@ from typing import Dict, Union, Any, Optional
 
 
 class DataStream(ABC):
-    def __init__(self, stream_id: str):
+    def __init__(self, stream_id: str) -> None:
         self.stream_id = stream_id
         self.processed_count = 0
 
@@ -92,7 +92,7 @@ class EventStream(DataStream):
 
 
 class StreamProcessor:
-    def __init__(self):
+    def __init__(self) -> None:
         self.streams: list[DataStream] = []
 
     def add_stream(self, stream: DataStream) -> None:
@@ -141,7 +141,7 @@ class StreamProcessor:
               "2 critical sensor alerts, 1 large transaction")
 
 
-def main():
+def main() -> None:
     sensor = SensorStream("SENSOR_001")
     transaction = TransactionStream("TRANS_001")
     event = EventStream("EVENT_001")
