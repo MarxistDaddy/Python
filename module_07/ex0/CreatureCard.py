@@ -1,19 +1,21 @@
 from ex0.Card import Card
 
+
 class CreatureCard(Card):
-    def __init__(self, 
-            name: str, cost: int, rarity: str, attack: int, health: int):
-
-        #extend th constructor method, by adding attack and heakth
+    def __init__(
+        self,
+        name: str,
+        cost: int,
+        rarity: str,
+        attack: int,
+        health: int
+    ):
         super().__init__(name, cost, rarity)
-
         if attack <= 0 or health <= 0:
             raise ValueError("Attack and health must be positive integers")
-
         self.attack = attack
         self.health = health
 
-    #override abstract class
     def play(self, game_state: dict) -> dict:
         return {
             "card_played": self.name,
@@ -30,17 +32,12 @@ class CreatureCard(Card):
         }
 
     def get_card_info(self) -> dict:
-        
-        #extend this get_card_info method, by adding attack and health!
         base_info = super().get_card_info()
-        
         return {
-            "name": base_info["name"], 
-            "cost": base_info["cost"], 
-            "rarity": base_info["rarity"], 
-            "type": base_info["type"], 
-            "attack": self.attack, 
+            "name": base_info["name"],
+            "cost": base_info["cost"],
+            "rarity": base_info["rarity"],
+            "type": base_info["type"],
+            "attack": self.attack,
             "health": self.health,
         }
-
-

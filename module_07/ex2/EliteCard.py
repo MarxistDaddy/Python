@@ -2,9 +2,17 @@ from ex0.Card import Card
 from ex2.Combatable import Combatable
 from ex2.Magical import Magical
 
+
 class EliteCard(Card, Combatable, Magical):
-    def __init__(self, 
-        name: str, cost: int, rarity: str, attack: int, health: int, mana_pool: int):
+    def __init__(
+        self,
+        name: str,
+        cost: int,
+        rarity: str,
+        attack: int,
+        health: int,
+        mana_pool: int
+    ):
         super().__init__(name, cost, rarity)
         self.attack_power = attack
         self.health = health

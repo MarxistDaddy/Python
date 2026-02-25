@@ -4,7 +4,6 @@ from ex1.ArtifactCard import ArtifactCard
 from ex1.Deck import Deck
 
 
-
 def main():
     print("=== DataDeck Deck Builder ===\n")
     print("Building Deck with different card types...")
@@ -13,8 +12,6 @@ def main():
     creature = CreatureCard("Fire Dragon", 5, "Legendary", 7, 5)
     spell = SpellCard("Lightning Bold", 3, "Rare", "damage")
     artifact = ArtifactCard("Mana Crystal", 2, "Common", 10, "1 mana per turn")
-    
-    #building Deck
     Deck_card.add_card(spell)
     Deck_card.add_card(artifact)
     Deck_card.add_card(creature)
@@ -37,4 +34,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

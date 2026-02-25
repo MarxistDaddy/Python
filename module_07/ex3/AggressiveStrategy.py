@@ -2,6 +2,7 @@ from ex3.GameStrategy import GameStrategy
 from ex0.CreatureCard import CreatureCard
 from ex1.SpellCard import SpellCard
 
+
 class AggressiveStrategy(GameStrategy):
 
     def execute_turn(self, hand: list, battlefield: list) -> dict:
@@ -45,4 +46,3 @@ class AggressiveStrategy(GameStrategy):
 
     def prioritize_targets(self, available_targets: list) -> list:
         return available_targets
-

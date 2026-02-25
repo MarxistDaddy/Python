@@ -8,7 +8,6 @@ class GameEngine:
         self.total_damage = 0
         self.cards_created = 0
 
-
     def configure_engine(self, factory, strategy):
         self.factory = factory
         self.strategy = strategy
@@ -19,9 +18,7 @@ class GameEngine:
         self.turns_simulated += 1
         result = self.strategy.execute_turn(self.hand, self.battlefield)
         self.total_damage += result["damage_dealt"]
-       
         return result
-
 
     def get_engine_status(self) -> dict:
         return {

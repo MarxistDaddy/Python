@@ -1,4 +1,3 @@
-
 class TournamentPlatform:
     def __init__(self):
         self.cards = {}
@@ -31,7 +30,6 @@ class TournamentPlatform:
             "loser_rating": loser.rating,
         }
 
-
     def get_leaderboard(self) -> list:
         cards_list = list(self.cards.values())
 
@@ -40,20 +38,27 @@ class TournamentPlatform:
             for j in range(i + 1, len(cards_list)):
                 if cards_list[j].rating > cards_list[max_index].rating:
                     max_index = j
-        
-            cards_list[i], cards_list[max_index] = cards_list[max_index], cards_list[i]
-
+            (
+                cards_list[i],
+                cards_list[max_index]
+            ) = (
+                cards_list[max_index],
+                cards_list[i]
+            )
         leaderboard = []
 
         position = 1
         for card in cards_list:
             leaderboard.append(
-                f"{position}. {card.name} - Rating: {card.rating} ({card.wins}-{card.losses})"
+                (
+                    f"{position}. {card.name} -"
+                    f"Rating: {card.rating} "
+                    f"({card.wins}-{card.losses})"
+                )
             )
             position += 1
 
         return leaderboard
-
 
     def generate_tournament_report(self) -> dict:
         total_rating = sum(card.rating for card in self.cards.values())
@@ -66,4 +71,3 @@ class TournamentPlatform:
             "avg_rating": avg_rating,
             "platform_status": "active"
         }
-
