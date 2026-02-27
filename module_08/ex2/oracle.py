@@ -2,12 +2,13 @@ import os
 import sys
 from dotenv import load_dotenv
 
-load_dotenv() #load the function to read all the files
+# Load variables from .env file into the environment
+load_dotenv()
 
 print("ORACLE STATUS: Reading the Matrix...\n")
 
-#get each vlue one by one!
-
+#get env variables
+#if they are not set in the syste or .env file, os.getenv returns None
 matrix = os.getenv("MATRIX_MODE")
 data = os.getenv("DATABASE_URL")
 api = os.getenv("API_KEY")
@@ -20,6 +21,7 @@ print(api)
 print(log)
 print(zion)
 
+#check for missing configuration variables!
 missing = []
 
 if not matrix:

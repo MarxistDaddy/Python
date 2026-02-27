@@ -1,21 +1,26 @@
 import sys
-import importlib #what does this lib do?
+import importlib #for dynamic importing of modules!
 
-dependencies = ["pandas", "numpy", "matplotlib","requests"]
-installed = {} #empty dic
+#list of required depedencies
+dependencies = ["pandas", "numpy", "matplotlib", "requests"]
+installed = {}
 
 print("LOADING SATUS: Loading programs...")
 print("Checking dependencies...\n")
 
+#check each depedency
 for package in dependencies:
     try:
-        module = importlib.import_module(package) #what mdule_import do?
+        #dynamically import the module
+        module = importlib.import_module(package)
+        #get module version or "unknown" if not available
         version = getattr(module, "__version__", "unknown")
         installed[package] = module
         print(f"[OK] {package.capitalize()} ({version}) - ready")
     except ImportError:
         print(f"[MISSING] {package.capitalize()} - please install it")
 
+#print and stop execution if any depdencies are missing
 if len(dependencies) > len(installed):
     print("\nPlease install missing dependencies first using:")
     print(" pip install -r requirements.txt")
@@ -28,13 +33,11 @@ print("Processing 1000 data points...")
 
 pd = installed["pandas"]
 np = installed["numpy"]
-plt = importlib.import_module("matplotlib.pyplot")  # FIXED
+plt = importlib.import_module("matplotlib.pyplot")
 
-# create fake matrix data
 data = pd.DataFrame({"matrix_code": np.random.randn(1000)})
 mean_value = data["matrix_code"].mean()
 
-# Plot
 plt.figure()
 plt.plot(data["matrix_code"])
 plt.title("Matrix Code Stream")
@@ -45,4 +48,3 @@ plt.savefig("matrix_analysis.png")
 print("Generating visualization...")
 print("Analysis complete!")
 print("Results saved to: matrix_analysis.png")
-
