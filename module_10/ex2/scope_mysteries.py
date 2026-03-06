@@ -1,11 +1,12 @@
-# Memory Depths Test Data
 initial_powers = [20, 47, 79]
 power_additions = [16, 5, 12, 9, 7]
 enchantment_types = ['Earthen', 'Flaming', 'Flowing']
 items_to_enchant = ['Amulet', 'Sword', 'Wand', 'Staff']
 
+
 def mage_counter() -> callable:
     count = 0
+
     def counter():
         nonlocal count
         count += 1
@@ -13,8 +14,10 @@ def mage_counter() -> callable:
 
     return counter
 
+
 def spell_accumulator(initial_power: int) -> callable:
     power = initial_power
+
     def add_power(total):
         nonlocal power
         power += total
@@ -32,7 +35,6 @@ def memory_vault() -> dict[str, callable]:
     memory = {}
 
     def store(key, value):
-        nonlocal memory
         memory[key] = value
 
     def recall(key):
@@ -45,17 +47,16 @@ def memory_vault() -> dict[str, callable]:
         "recall": recall
     }
 
+
 def main():
     print("Testing mage counter...")
     c = mage_counter()
     for i in range(1, 3 + 1):
         print(f"Call {i}:", c())
 
-
     print("\nTesting spell accumulator...")
     p = spell_accumulator(initial_powers[0])
     print(f"Initial power {initial_powers[0]}: accumulated power {p(10)}")
-    
 
     print("\nTesting enchantant factory...")
     e = enchantment_factory(enchantment_types[1])
@@ -66,6 +67,7 @@ def main():
     function_dict = memory_vault()
     function_dict["store"]("color", "blue")
     print(function_dict["recall"]("color"))
+
 
 if __name__ == "__main__":
     main()

@@ -82,10 +82,19 @@ def mage_stats(mages: list[dict]) -> dict:
 
 
 def main():
+    print("Testing artifact sorter...")
     lst = artifact_sorter(artifacts)
     print(f"first item {lst[0]['name']} ({lst[0]['power']} power)"
           f" last item {lst[-1]['name']} ({lst[-1]['power']} power)")
-    print(spell_transformer(spells))
+    print("\nTesting spell transformer...")
+    print(mage_stats(mages))
+    lst = spell_transformer(spells)
+    for v in lst:
+        print(v, end=" ")
+    print("\n\nTesting mage stats...")
+    print(mage_stats(mages))
+    print("\nTesting power filter...")
+    print(power_filter(mages, 70))
 
 
 if __name__ == "__main__":
