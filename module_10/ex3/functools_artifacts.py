@@ -27,6 +27,7 @@ def partial_enchanter(base_enchantment: callable) -> dict[str, callable]:
 def memoized_fibonacci(n: int) -> int:
     if n < 2:
         return n
+    print(f"counting...{n}")
     return memoized_fibonacci(n - 1) + memoized_fibonacci(n - 2)
 
 
@@ -71,7 +72,7 @@ def main():
     print(enchants["lightning_enchant"]("staff"))
     print("\nTesting memoized fibonacci...")
     print("Fib(10):", memoized_fibonacci(10))
-    print("Fib(15):", memoized_fibonacci(15))
+    print("Fib(15):", memoized_fibonacci(10))
     print("\nTesting spell dispatcher...")
     s = spell_dispatcher()
     s(45)
